@@ -2,7 +2,7 @@ import React from "react";
 import Card from "./Card";
 
 export default function CardList({ robots }) {
-  const cardsArray = robots.map((robot, i) => {
+  const cardsArray = robots.map(robot => {
     return (
       <Card
         id={robot.id}
