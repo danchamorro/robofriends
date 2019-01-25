@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import CardList from "./CardList";
-import SearchBox from "./SearchBox";
+import CardList from "../components/CardList";
+import SearchBox from "../components/SearchBox";
 import axios from "axios";
 import "./App.css";
-import Scroll from "./Scroll";
+import Scroll from "../components/Scroll";
 
 export default class App extends Component {
   state = {
@@ -18,7 +18,6 @@ export default class App extends Component {
   componentDidMount = () => {
     axios("https://jsonplaceholder.typicode.com/users")
       .then(response => {
-        console.log(response);
         this.setState({ robots: response.data });
       })
       .catch(error => {
@@ -33,7 +32,9 @@ export default class App extends Component {
         .includes(this.state.searchField.toLowerCase());
     });
 
-    return (
+    return !this.state.robots.length ? (
+      <h1>Loading...</h1>
+    ) : (
       <div className="tc">
         <h1 className="f1">RoboFriends</h1>
         <SearchBox searchChange={this.onSearchChange} />
