@@ -6,4 +6,4 @@
 - React
 - Axios
 
-https://dc-robo-friends.netlify.com/
+robo-friends.now.sh
