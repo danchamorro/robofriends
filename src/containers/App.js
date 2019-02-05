@@ -4,6 +4,7 @@ import SearchBox from "../components/SearchBox";
 import axios from "axios";
 import "./App.css";
 import Scroll from "../components/Scroll";
+import ErrorBoundry from "../components/ErrorBoundry";
 
 export default class App extends Component {
   state = {
@@ -39,7 +40,9 @@ export default class App extends Component {
         <h1 className="f1">RoboFriends</h1>
         <SearchBox searchChange={this.onSearchChange} />
         <Scroll>
-          <CardList robots={filteredRobots} />
+          <ErrorBoundry>
+            <CardList robots={filteredRobots} />
+          </ErrorBoundry>
         </Scroll>
       </div>
     );
