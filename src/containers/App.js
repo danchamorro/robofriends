@@ -9,14 +9,21 @@ import ErrorBoundry from "../components/ErrorBoundry";
 
 import { setSearchField } from "../actions";
 
+const mapStateToProps = state => {
+  return {
+    searchField: state.searchField
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onSearchChange: event => dispatch(setSearchField(event.target.value))
+  };
+};
+
 class App extends Component {
   state = {
-    robots: [],
-    searchField: ""
-  };
-
-  onSearchChange = event => {
-    this.setState({ searchField: event.target.value });
+    robots: []
   };
 
   componentDidMount = () => {
@@ -30,10 +37,10 @@ class App extends Component {
   };
 
   render() {
-    const filteredRobots = this.state.robots.filter(robot => {
-      return robot.name
-        .toLowerCase()
-        .includes(this.state.searchField.toLowerCase());
+    const { robots } = this.state;
+    const { searchField, onSearchChange } = this.props;
+    const filteredRobots = robots.filter(robot => {
+      return robot.name.toLowerCase().includes(searchField.toLowerCase());
     });
 
     return !this.state.robots.length ? (
@@ -41,7 +48,7 @@ class App extends Component {
     ) : (
       <div className="tc">
         <h1 className="f1">RoboFriends</h1>
-        <SearchBox searchChange={this.onSearchChange} />
+        <SearchBox searchChange={onSearchChange} />
         <Scroll>
           <ErrorBoundry>
             <CardList robots={filteredRobots} />
@@ -52,4 +59,7 @@ class App extends Component {
   }
 }
 
-export default connect()(App);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);
