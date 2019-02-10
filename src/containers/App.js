@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import CardList from "../components/CardList";
 import SearchBox from "../components/SearchBox";
 import axios from "axios";
@@ -6,7 +7,9 @@ import "./App.css";
 import Scroll from "../components/Scroll";
 import ErrorBoundry from "../components/ErrorBoundry";
 
-export default class App extends Component {
+import { setSearchField } from "../actions";
+
+class App extends Component {
   state = {
     robots: [],
     searchField: ""
@@ -48,3 +51,5 @@ export default class App extends Component {
     );
   }
 }
+
+export default connect()(App);
